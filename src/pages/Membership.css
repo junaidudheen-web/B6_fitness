@@ -1,0 +1,222 @@
+.billing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.billing-toggle span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.billing-toggle span.active {
+  color: var(--text-light);
+}
+
+.save-badge {
+  background: var(--accent-color);
+  color: #fff !important;
+  font-size: 0.8rem !important;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #333;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--primary-color);
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #444;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.pricing-card {
+  position: relative;
+  padding: 3rem 2rem;
+  border-top: 4px solid transparent;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pricing-card.recommended {
+  border-top-color: var(--primary-color);
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.1);
+  z-index: 1;
+}
+
+.pricing-card.recommended:hover {
+  transform: scale(1.08);
+}
+
+.recommend-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--primary-color);
+  color: #000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.plan-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.plan-header h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.plan-header p {
+  color: var(--text-muted);
+  min-height: 48px;
+}
+
+.plan-price {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.currency {
+  font-size: 1.5rem;
+  vertical-align: top;
+  color: var(--primary-color);
+}
+
+.amount {
+  font-size: 3.5rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  line-height: 1;
+}
+
+.period {
+  color: var(--text-muted);
+}
+
+.plan-features {
+  flex-grow: 1;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.plan-features li.disabled {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.text-muted {
+  color: #555;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+/* Offers Banner */
+.offers-banner {
+  margin-top: 5rem;
+  padding: 2.5rem;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: linear-gradient(45deg, rgba(26,26,26,1) 0%, rgba(40,35,10,1) 100%);
+}
+
+.offers-banner h3 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pricing-card.recommended {
+    transform: scale(1);
+  }
+  .pricing-card.recommended:hover {
+    transform: scale(1.02);
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}

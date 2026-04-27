@@ -1,0 +1,142 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.5rem 0;
+  transition: var(--transition);
+  background-color: transparent;
+}
+
+.navbar.scrolled {
+  background-color: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1rem 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.logo-icon {
+  color: var(--primary-color);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-light);
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-color);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-toggle {
+  display: none;
+  color: var(--text-light);
+}
+
+
+@media (max-width: 992px) {
+  .nav-list {
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: block;
+    z-index: 1001;
+  }
+
+  .join-btn-desktop {
+    margin-right: 1rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 400px;
+    height: 100vh;
+    background-color: var(--bg-card);
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    transition: right 0.4s ease;
+    box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}

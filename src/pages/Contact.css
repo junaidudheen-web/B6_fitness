@@ -1,0 +1,120 @@
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+.contact-info-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact-desc {
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.info-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 50%;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.info-text h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-text p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Contact Form */
+.contact-form-container {
+  padding: 3rem;
+}
+
+.contact-form-container h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text-light);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.map-section {
+  line-height: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .contact-form-container {
+    padding: 2rem 1.5rem;
+  }
+}

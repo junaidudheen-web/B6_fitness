@@ -1,0 +1,136 @@
+.program-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 6rem;
+}
+
+.program-row:last-child {
+  margin-bottom: 0;
+}
+
+.program-row.reverse .prog-image {
+  order: 2;
+}
+
+.program-row.reverse .prog-content {
+  order: 1;
+}
+
+.prog-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.prog-image img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.prog-image:hover img {
+  transform: scale(1.05);
+}
+
+.prog-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.prog-image:hover::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.prog-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.prog-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.prog-details {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+  margin-bottom: 2rem;
+}
+
+.prog-details h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.benefits {
+  margin-bottom: 1.5rem;
+}
+
+.benefits ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.benefits li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text-light);
+}
+
+.audience p {
+  color: var(--text-muted);
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .program-row {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .program-row.reverse .prog-image {
+    order: 1;
+  }
+  
+  .program-row.reverse .prog-content {
+    order: 2;
+  }
+  
+  .prog-image img {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .benefits ul {
+    grid-template-columns: 1fr;
+  }
+}

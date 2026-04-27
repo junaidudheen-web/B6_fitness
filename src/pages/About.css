@@ -1,0 +1,151 @@
+/* Page Header (reusable across pages) */
+.page-header {
+  height: 400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  margin-top: 80px; /* Offset for navbar */
+}
+
+.header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.header-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.header-content p {
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+/* Story Section */
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.story-image {
+  padding: 1rem;
+  background: var(--bg-card);
+}
+
+.story-image img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.story-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.story-text p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* MV Section */
+.mv-section {
+  background-color: #050505;
+}
+
+.mv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.mv-card {
+  padding: 4rem 2rem;
+}
+
+.mv-card h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.mv-card p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+/* Why Choose Us */
+.why-us-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.why-card {
+  background-color: var(--bg-card);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: var(--transition);
+}
+
+.why-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+}
+
+.why-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.why-card p {
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .story-grid, .mv-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    height: 300px;
+    margin-top: 70px;
+  }
+  .header-content h1 {
+    font-size: 2.5rem;
+  }
+}
