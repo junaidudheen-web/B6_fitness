@@ -39,11 +39,19 @@ const Programs = () => {
     },
     {
       id: "outdoor-fitness",
-      title: "Outdoor Fitness & Calisthenics",
-      img: "https://images.unsplash.com/photo-1526506114642-54cb3586ed6f?q=80&w=1470&auto=format&fit=crop",
-      desc: "Take your workout outside. Utilizing bodyweight exercises, functional movements, and the natural environment to build functional strength.",
-      benefits: ["Functional strength development", "Fresh air and vitamin D", "Improved core stability", "Mastery of bodyweight"],
-      audience: "Fitness enthusiasts looking for a dynamic, functional approach outside the traditional gym floor."
+      title: "Outdoor Fitness",
+      img: "/programs/outdoor_fitness.png",
+      desc: "Take your workout outside. Utilizing functional movements, cardio, and the natural environment to improve stamina and cardiovascular health.",
+      benefits: ["Improved agility and stamina", "Fresh air and vitamin D", "Dynamic terrain challenges", "Mental health boost"],
+      audience: "Fitness enthusiasts who prefer training in nature rather than indoors."
+    },
+    {
+      id: "calisthenics",
+      title: "Calisthenics",
+      img: "/programs/calisthenics.png",
+      desc: "Master your own bodyweight with our dedicated calisthenics area. Develop incredible core strength, flexibility, and muscle control.",
+      benefits: ["Mastery of bodyweight", "Incredible core strength", "Increased flexibility", "No equipment dependency"],
+      audience: "Individuals looking to build functional strength and perform advanced bodyweight movements."
     }
   ];
 

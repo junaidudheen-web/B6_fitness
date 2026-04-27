@@ -33,8 +33,8 @@ const Facilities = () => {
       icon: <Coffee size={40} className="text-primary" />,
       desc: "We believe the gym should fit seamlessly into your daily life. Our lifestyle amenities provide comfort before and after your workout.",
       images: [
-        "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1447&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1560205001-a7eb20c6a2c2?q=80&w=1449&auto=format&fit=crop"
+        "/facilities/children_play_area.png",
+        "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1447&auto=format&fit=crop"
       ],
       features: ["Children's Play Area", "Coffee Shop & Nutrition Bar", "Prayer Hall", "Meeting Room"]
     }
