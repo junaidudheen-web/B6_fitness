@@ -72,85 +72,163 @@ const Home = () => {
     { name: "Mohammed F.", review: "Premium equipment and a great atmosphere. Highly recommended.", rating: 5 }
   ];
 
-  const videoRef = React.useRef(null);
+  const canvasRef = React.useRef(null);
+  const heroRef = React.useRef(null);
 
   React.useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const canvas = canvasRef.current;
+    const hero = heroRef.current;
+    if (!canvas || !hero) return;
 
-    let reverseInterval;
+    const context = canvas.getContext('2d');
+    const frameCount = 240;
+    
+    // Set fixed dimensions for drawing to match standard 16:9 aspect ratio
+    canvas.width = 1920;
+    canvas.height = 1080;
 
-    const playReverse = () => {
-      video.pause();
-      
-      reverseInterval = setInterval(() => {
-        if (video.currentTime <= 0.1) {
-          clearInterval(reverseInterval);
-          video.currentTime = 0;
-          video.play().catch(e => console.log(e));
-        } else {
-          // Adjust the interval rate to simulate a smooth rewind
-          video.currentTime -= 0.05;
+    const currentFrame = index => (
+      `https://res.cloudinary.com/daqnnlvlm/image/upload/f_auto,q_auto,w_960/v1777801438/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.png`
+    );
+
+    let lastFrameIndex = 0;
+    let ticking = false;
+
+    const images = new Array(frameCount);
+
+    const loadImage = (i) => {
+      if (images[i]) return;
+      const img = new Image();
+      img.src = currentFrame(i);
+      img.onload = () => {
+        if (i === lastFrameIndex) {
+          requestAnimationFrame(() => {
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+          });
         }
-      }, 50);
+      };
+      images[i] = img;
     };
 
-    const handleEnded = () => {
-      playReverse();
-    };
-
-    video.addEventListener('ended', handleEnded);
-
-    if (video.paused) {
-      video.play().catch(e => console.log(e));
+    // Preload first 20 frames immediately for performance
+    for (let i = 0; i < 20; i++) {
+      loadImage(i);
     }
 
+    // Load remaining frames in small batches so we don't freeze the main thread
+    let currentLoadIndex = 20;
+    const loadRemaining = setInterval(() => {
+      if (currentLoadIndex >= frameCount) {
+        clearInterval(loadRemaining);
+        return;
+      }
+      for (let j = 0; j < 10 && currentLoadIndex < frameCount; j++, currentLoadIndex++) {
+        loadImage(currentLoadIndex);
+      }
+    }, 50);
+
+    if (images[0] && images[0].complete) {
+      context.drawImage(images[0], 0, 0, canvas.width, canvas.height);
+    }
+
+    const updateCanvas = (frameIndex) => {
+      // Dynamically load the frame if it hasn't started loading yet
+      if (!images[frameIndex]) {
+        loadImage(frameIndex);
+      }
+      if (images[frameIndex] && images[frameIndex].complete) {
+        context.drawImage(images[frameIndex], 0, 0, canvas.width, canvas.height);
+      }
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const heroRect = hero.getBoundingClientRect();
+          const scrollPos = -heroRect.top;
+          const scrollMax = heroRect.height - window.innerHeight;
+          
+          if (scrollPos < 0) {
+             if (lastFrameIndex !== 0) {
+                lastFrameIndex = 0;
+                updateCanvas(0);
+             }
+             ticking = false;
+             return;
+          }
+          
+          if (scrollPos > scrollMax) {
+             const lastIdx = frameCount - 1;
+             if (lastFrameIndex !== lastIdx) {
+                lastFrameIndex = lastIdx;
+                updateCanvas(lastIdx);
+             }
+             ticking = false;
+             return;
+          }
+          
+          const scrollFraction = scrollMax > 0 ? Math.max(0, Math.min(1, scrollPos / scrollMax)) : 0;
+          const frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
+          
+          if (frameIndex !== lastFrameIndex) {
+            lastFrameIndex = frameIndex;
+            updateCanvas(frameIndex);
+          }
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial call to set the first frame
+    handleScroll();
+
     return () => {
-      video.removeEventListener('ended', handleEnded);
-      clearInterval(reverseInterval);
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(loadRemaining);
     };
   }, []);
 
   return (
     <div className="home-page">
       {/* Hero Section */}
-      <section className="hero-section">
-        <video 
-          ref={videoRef}
-          className="hero-video"
-          src="/hero/Gym_equipment_transitioning_202604260045(1) (online-video-cutter.com).mp4"
-          autoPlay 
-          muted 
-          playsInline
-        ></video>
-        <div className="hero-overlay"></div>
-        <div className="container hero-content">
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="hero-title"
-          >
-            Transform Your Body.<br />
-            <span className="text-primary">Elevate Your Lifestyle.</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hero-subtitle"
-          >
-            Experience complete fitness, recovery, and wellness at B6 Fitness 360, Kondotty.
-          </motion.p>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="hero-buttons"
-          >
-            <Link to="/membership" className="btn btn-primary">Join Now</Link>
-            <Link to="/contact" className="btn btn-outline">Book Free Trial</Link>
-          </motion.div>
+      <section ref={heroRef} className="hero-section">
+        <div className="hero-sticky">
+          <canvas 
+            ref={canvasRef}
+            className="hero-canvas"
+          ></canvas>
+          <div className="hero-overlay"></div>
+          <div className="container hero-content">
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="hero-title"
+            >
+              Transform Your Body.<br />
+              <span className="text-primary">Elevate Your Lifestyle.</span>
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="hero-subtitle"
+            >
+              Experience complete fitness, recovery, and wellness at B6 Fitness 360, Kondotty.
+            </motion.p>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="hero-buttons"
+            >
+              <Link to="/membership" className="btn btn-primary">Join Now</Link>
+              <Link to="/contact" className="btn btn-outline">Book Free Trial</Link>
+            </motion.div>
+          </div>
         </div>
       </section>
 
